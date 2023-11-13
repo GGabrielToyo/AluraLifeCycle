@@ -10,14 +10,17 @@ import { ListaDeCompraService } from 'src/app/service/lista-de-compra.service';
 export class InputComponent implements OnInit, OnChanges {
 
   @Input() itemParaEditar!: Item;
-  editando: boolean = false;
-  textoBtn: string = 'Salvar Item';
+  editando!: boolean;
+  textoBtn!: string;
 
   nomeNovoItem!: string;
 
   constructor(private listaService: ListaDeCompraService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.textoBtn = "Salvar Item"
+    this.editando = false;
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     this.editando = true;

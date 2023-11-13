@@ -6,29 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class ListaDeCompraService {
 
-  private listaDeCompra: Item[] = [
-    {
-      "id": 1,
-      "nome": "Queijo prato",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": false
-    },
-    {
-      "id": 2,
-      "nome": "Leite integral",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": false
-    },
-    {
-      "id": 3,
-      "nome": "Mamão papaia",
-      "data": "Segunda-feira (31/10/2022) às 08:30",
-      "comprado": true
-    },
-  ]
+  private listaDeCompra: Item[] = []
 
   constructor() {
-    console.log('Instanciando dependências necessárias para o serviço.');
+    this.listaDeCompra = JSON.parse(localStorage.getItem('itens') || '[]');
   }
 
   getListaDeCompra() {
@@ -46,6 +27,7 @@ export class ListaDeCompraService {
     }
 
     this.listaDeCompra.push(novoItem);
+    //this.atualizarLocalStorage();
   }
 
   editarItem(itemAntigo: Item, nomeEditadoItem: string) {
@@ -57,6 +39,11 @@ export class ListaDeCompraService {
     }
 
     this.listaDeCompra.splice(Number(itemAntigo.id) - 1, 1, itemEditado);
+    //this.atualizarLocalStorage();
+  }
+
+  atualizarLocalStorage(): void {
+    localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
   }
 
 }
